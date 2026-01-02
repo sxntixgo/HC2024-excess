@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% autoescape false %}
+                <div id='svg_image'/>
+                    <img src="data:image/svg+xml;base64,{{ image }}" />
+                </div>
+    {% endautoescape %}
+{% endblock %}

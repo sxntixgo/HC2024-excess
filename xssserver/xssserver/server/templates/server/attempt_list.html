@@ -1,0 +1,82 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load tz %}
+{% block content %}
+<div class="container-lg pt-5">
+    <h2>Attempts</h2>
+    {% if object_list %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Target Server</th>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for object in object_list %}
+            <tr>
+                <td scope="row"><a href="{% url "attempt_detail" pk=object.pk %}">{{ object.pk }}</a></td>
+                <td>{{ object.target_server }}</td>
+                <td>{{ object.datetime|timezone:"America/Denver"|date:"m/d/Y g:i a" }}</td>
+                <td>{% if object.completed %}{% if object.result %}Success{% else %}Failure{% endif %}{% else %}Checking Result{% endif %}</td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-primary" role="alert">
+        You haven't made any attempt yet.
+    </div>
+    {% endif %}
+    </ul>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">First</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            {% endif %}
+            {% for page_number in page_obj.paginator.page_range %}
+                {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
+                    {% if page_obj.number == page_number %}
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+                    {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Next</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Last</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

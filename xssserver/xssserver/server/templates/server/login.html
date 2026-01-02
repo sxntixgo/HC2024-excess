@@ -1,0 +1,23 @@
+{% extends "./base.html" %}
+{% load bootstrap5 %}
+{% block content %}
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h2>Log In</h2>
+            <form method="POST" class="form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {% bootstrap_form form %}
+                </div>
+                <button class="btn btn-primary text-white" type="submit">Log In</button>
+            </form>
+            <div class="alert alert-warning mt-3" role="alert">
+                <div>
+                    If you don't have an account, <a href={% url 'register' %} class="alert-link">register</a> first.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

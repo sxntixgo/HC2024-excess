@@ -1,0 +1,48 @@
+- model: server.targetserver
+  pk: 1
+  fields:
+    name: "https://excess-level-zero.youcanhack.me/"
+    url: "https://excess-level-zero.youcanhack.me/"
+    flag: flag={IGotCrossSiteScripting}
+- model: server.targetserver
+  pk: 2
+  fields:
+    name: "https://excess-level-one.youcanhack.me/"
+    url: "https://excess-level-one.youcanhack.me/"
+    flag: flag={AlertAlertAlert}
+- model: server.targetserver
+  pk: 3
+  fields:
+    name: "https://excess-level-two.youcanhack.me/"
+    url: "https://excess-level-two.youcanhack.me/"
+    flag: flag={ILikeDialogBoxes}
+- model: server.targetserver
+  pk: 4
+  fields:
+    name: "https://excess-level-three.youcanhack.me/"
+    url: "https://excess-level-three.youcanhack.me/"
+    flag: flag={XSSsAreSuperFun}
+- model: server.targetserver
+  pk: 5
+  fields:
+    name: "https://excess-level-four.youcanhack.me/"
+    url: "https://excess-level-four.youcanhack.me/"
+    flag: flag={Level4HasAnXSS}
+- model: server.targetserver
+  pk: 6
+  fields:
+    name: "https://excess-level-five.youcanhack.me/"
+    url: "https://excess-level-five.youcanhack.me/"
+    flag: flag={IKeepFindingXSS}
+- model: server.targetserver
+  pk: 7
+  fields:
+    name: "https://excess-level-six.youcanhack.me/"
+    url: "https://excess-level-six.youcanhack.me/"
+    flag: flag={YouGetAnAlertYouGetAnAlert}
+- model: server.targetserver
+  pk: 8
+  fields:
+    name: "https://excess-level-seven.youcanhack.me/"
+    url: "https://excess-level-seven.youcanhack.me/"
+    flag: flag={XSSBlackBeltNinja}

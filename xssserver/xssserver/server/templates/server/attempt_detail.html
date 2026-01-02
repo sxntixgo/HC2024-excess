@@ -1,0 +1,58 @@
+{% extends "./base.html" %}
+{% load static %}
+{% load tz %}
+{% block content %}
+<div class="container-lg pt-5">
+    {% if user.is_authenticated %}
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h2>Attempt {{ object.pk }}</h2>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Refesh this page until status changes to "Attempt Completed". If your attempt was successful, the page will show you a green button to display the flag.
+            </div>
+            <p><b>Date and Time:</b> {{ object.datetime|timezone:"America/Denver"|date:"m/d/Y g:i a" }}</p>
+            <p><b>Status:</b> 
+            {% if object.completed %}
+                Attempt Completed
+            </p>
+            <p><b>Result:</b> {% if object.result %}Success{% else %}Failure{% endif %}</p>
+            <p><b>Target Server:</b> {{ object.target_server }}</p>
+            <div class="col pb-2">
+                <button id="resource_btn" class="btn btn-success btn-sm text-white" onclick="showElement('resource', 'resource_btn');">Resource and Query String</button>
+            </div>
+            <p id="resource" style="display: none"><b>Resource and Query String:</b> {{attempt.resource_and_query_string}}</p>
+            {% if object.result %}
+            <div class="col pb-2">
+                <button id="flag_btn" class="btn btn-success btn-sm text-white" onclick="showElement('flag', 'flag_btn');">Show Flag</button>
+            </div>
+            <div id="flag" class="alert alert-success" role="alert" style="display: none">
+                {{ object.target_server.flag }}
+            </div>
+            {% endif %}
+            {% else %}
+                Checking result
+            {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-primary" role="alert">
+        <div>
+            To use the Excess Server, you need to <a href={% url 'login' %}>log in</a>. If you don't have an account, <a href={% url 'register' %}>register</a> first.
+        </div>
+    </div>
+    {% endif %}
+</div>
+<script>
+    function showElement(field, button) {
+        field = document.getElementById(field);
+        button = document.getElementById(button);
+        if (field.style.display == 'none') {
+            field.style.display = 'block';
+            button.innerText = button.innerText.replace('Show', 'Hide');
+        } else {
+            field.style.display = 'none';
+            button.innerText = button.innerText.replace('Hide', 'Show');
+        }
+      }
+</script>
+{% endblock %}

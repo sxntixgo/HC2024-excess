@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+                    <form method="GET">
+                        <div class="mb-3">
+                            <label for="script" class="form-label lead">I will run javascript, unless it contains an "a"</label>
+                            <input type="script" class="form-control" id="script" name="script">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "./base.html" %}
+{% block content %}
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h2>Please Wait</h2>
+            <div class="alert alert-danger" role="alert">
+                You did not wait enough to make an attempt. Remember that you can make an attempt every {{ wait_time }} minutes.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

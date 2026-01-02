@@ -1,0 +1,52 @@
+{% load static %}
+{% load tz %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Excess Server</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favico.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'scss/main.css' %}"/>
+    {% load bootstrap5 %}
+    {% bootstrap_javascript %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Excess Server</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <span class="navbar-text me-1 text-light">{{ user.username }}(Last Attempt: {% if user.gameuser.last_check %}{{ user.gameuser.last_check|timezone:"America/Denver"|date:"m/d/Y g:i a" }}{% else %}N/A{% endif %})</span>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Make Attempt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'attempts' %}">List Attempts</a>
+                    </li>
+                    <li class="nav-item">
+                        <form id="frm_logout" method="post" action="{% url 'logout' %}"> 
+                            {% csrf_token %} 
+                            <button class="btn btn-outline-light me-2" type="submit">Logout</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>

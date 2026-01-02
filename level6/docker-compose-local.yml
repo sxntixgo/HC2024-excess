@@ -1,0 +1,17 @@
+version: "3"
+services:
+  nginx: 
+    image: nginx:1.27.2-alpine  
+    ports:
+      - "8000:80"
+    depends_on: 
+      - targetserver 
+    restart: "on-failure"
+    volumes:
+      - ./data/nginx-dev:/etc/nginx/conf.d
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+  targetserver:
+    build:
+       context: .
+    ports:
+       - "8000"

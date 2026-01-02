@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+                    <form>
+                        <div class="mb-3">
+                            <label for="image" class="form-label lead">Select an svg image</label>
+                            <input type="file" class="form-control" id="image" name="image" onchange="read(this)">
+                        </div>
+                        <button type="button" onclick="submitFile()" class="btn btn-primary">Submit</button>
+                    </form>
+                    <script>
+                        var requestParam;
+
+                        function base64EncodeUnicode(str) {
+                            utf8Bytes = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
+                              return String.fromCharCode('0x' + p1);
+                            });
+                          
+                            return btoa(utf8Bytes);
+                        }
+
+                        function readFile(file) {
+                            return new Promise((resolve, reject) => {
+                              let fr = new FileReader();
+                              fr.onload = x=> resolve(fr.result);
+                              fr.readAsText(file);
+                          })}
+                          
+                        async function read(input) {
+                            requestParam = await readFile(input.files[0]);
+                            requestParam =  base64EncodeUnicode(requestParam);
+                        }
+
+                        function submitFile() {
+                            window.location.assign("/?image="+requestParam);
+                          }
+                    </script>
+{% endblock %}
